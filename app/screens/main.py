@@ -13,7 +13,7 @@ class ScreenMain(LcarsScreen):
     def setup(self, all_sprites):
         all_sprites.add(LcarsBackgroundImage("assets/lcars_screen_1b.png"),
                         layer=0)
-        
+
         # panel text
         all_sprites.add(LcarsText(colours.BLACK, (11, 52), "LCARS 105"),
                         layer=1)
@@ -38,7 +38,7 @@ class ScreenMain(LcarsScreen):
         self.lastClockUpdate = 0
         all_sprites.add(self.stardate, layer=1)
 
-        # buttons        
+        # buttons
         all_sprites.add(LcarsButton(colours.RED_BROWN, "rounded", (6, 662), "LOGOUT", self.logoutHandler),
                         layer=4)
         all_sprites.add(LcarsButton(colours.BEIGE, "rect", (145, 15), "SENSORS", self.sensorsHandler),
@@ -48,20 +48,20 @@ class ScreenMain(LcarsScreen):
         all_sprites.add(LcarsButton(colours.PEACH, "rect", (255, 15), "WEATHER", self.weatherHandler),
                         layer=4)
 
-        # gadgets        
+        # gadgets
         all_sprites.add(LcarsGifImage("assets/gadgets/fwscan.gif", (277, 556), 100), layer=1)
-        
-        self.sensor_gadget = LcarsGifImage("assets/gadgets/lcars_anim2.gif", (235, 150), 100) 
+
+        self.sensor_gadget = LcarsGifImage("assets/gadgets/lcars_anim2.gif", (235, 150), 100)
         self.sensor_gadget.visible = False
         all_sprites.add(self.sensor_gadget, layer=2)
 
         self.dashboard = LcarsImage("assets/gadgets/dashboard.png", (187, 232))
         self.dashboard.visible = False
-        all_sprites.add(self.dashboard, layer=2) 
+        all_sprites.add(self.dashboard, layer=2)
 
         self.weather = LcarsImage("assets/weather.jpg", (188, 122))
         self.weather.visible = False
-        all_sprites.add(self.weather, layer=2) 
+        all_sprites.add(self.weather, layer=2)
 
         #all_sprites.add(LcarsMoveToMouse(colours.WHITE), layer=1)
         self.beep1 = Sound("assets/audio/panel/201.wav")
@@ -72,10 +72,10 @@ class ScreenMain(LcarsScreen):
             self.stardate.setText("STAR DATE {}".format(datetime.now().strftime("%d%m.%y %H:%M:%S")))
             self.lastClockUpdate = pygame.time.get_ticks()
         LcarsScreen.update(self, screenSurface, fpsClock)
-        
+
     def handleEvents(self, event, fpsClock):
         LcarsScreen.handleEvents(self, event, fpsClock)
-        
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.beep1.play()
 
@@ -98,15 +98,15 @@ class ScreenMain(LcarsScreen):
         self.sensor_gadget.visible = True
         self.dashboard.visible = False
         self.weather.visible = False
-    
+
     def weatherHandler(self, item, event, clock):
         self.hideInfoText()
         self.sensor_gadget.visible = False
         self.dashboard.visible = False
         self.weather.visible = True
-    
+
     def logoutHandler(self, item, event, clock):
         from screens.authorize import ScreenAuthorize
         self.loadScreen(ScreenAuthorize())
-    
-    
+
+
